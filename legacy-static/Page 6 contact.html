@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Pherrix</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --deep-blue:#0C2D5A;--mid-blue:#1A5DAB;--bright-blue:#3AACEB;--soft-blue:#5B8FBF;
+  --orange:#D97A3E;--orange-light:#E8893A;
+  --bg:#FFFFFF;--bg-cool:#F5F8FC;--bg-panel:#EEF2F7;
+  --text-muted:#6B89A8;--text-light:#94ADBE;--border:#E0E8F0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--deep-blue);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--deep-blue)}
+.logo svg{margin-left:-1px;margin-bottom:-2px}
+.nav-links{display:flex;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-muted);transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--deep-blue)}
+.nav-links a.active{border-bottom:2px solid var(--orange);padding-bottom:2px}
+.page-hero{padding:64px 48px 48px;max-width:1080px;margin:0 auto}
+.page-hero-label{font-size:12px;font-weight:600;letter-spacing:0.14em;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
+.page-hero h1{font-size:42px;font-weight:400;line-height:1.15;letter-spacing:-0.025em;font-family:"DM Serif Display",serif;margin-bottom:20px;max-width:700px}
+.page-hero h1 span{color:var(--orange)}
+.page-hero p{font-size:17px;line-height:1.75;color:var(--text-muted);max-width:600px}
+.section{padding:48px 48px;max-width:1080px;margin:0 auto}
+.section--alt{background:var(--bg-cool);max-width:none;padding:56px 48px}
+.section--alt .section-inner{max-width:1080px;margin:0 auto}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.12em;color:var(--orange);text-transform:uppercase;margin-bottom:12px}
+.section h2{font-size:28px;font-weight:400;font-family:"DM Serif Display",serif;margin-bottom:16px;letter-spacing:-0.02em}
+.section h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.section p{font-size:15px;line-height:1.7;color:var(--text-muted);max-width:680px}
+.footer{padding:28px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;border-top:1px solid var(--border);font-size:12px;color:var(--text-light)}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:28px;transition:box-shadow 0.3s,transform 0.3s}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(12,45,90,0.08)}
+@media(max-width:900px){.nav{padding:16px 24px}.nav-links{gap:20px}.page-hero,.section{padding-left:24px;padding-right:24px}.page-hero h1{font-size:32px}.footer{padding:24px}}
+@media(max-width:600px){.nav-links{display:none}.page-hero h1{font-size:28px}}
+
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px}
+.contact-info h3{font-size:20px;font-weight:600;margin-bottom:16px}
+.contact-info p{font-size:15px;line-height:1.7;color:var(--text-muted);margin-bottom:24px;max-width:100%}
+.contact-detail{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.contact-detail i{font-size:20px;color:var(--mid-blue);width:40px;height:40px;background:var(--bg-cool);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-detail span{font-size:14px;color:var(--deep-blue)}
+.contact-detail small{font-size:12px;color:var(--text-muted);display:block}
+.contact-form label{display:block;font-size:13px;font-weight:500;color:var(--deep-blue);margin-bottom:6px}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:"DM Sans",sans-serif;color:var(--deep-blue);background:var(--bg);transition:border-color 0.2s;margin-bottom:20px;outline:none}
+.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--mid-blue)}
+.contact-form textarea{resize:vertical;min-height:120px}
+.contact-form button{background:linear-gradient(135deg,var(--orange),var(--orange-light));color:#fff;border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:600;font-family:"DM Sans",sans-serif;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+.contact-form button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(217,122,62,0.3)}
+@media(max-width:900px){.contact-layout{grid-template-columns:1fr}}
+</style></head><body>
+<nav class="nav">
+  <a href="pherrix-homepage.html" class="logo">Pherri<svg width="22" height="30" viewBox="0 0 24 36" fill="none"><path d="M4 4C7 8 10 12 12 18C14 12 17 8 20 4" stroke="#D97A3E" stroke-width="3" stroke-linecap="round"/><path d="M4 32C7 28 10 24 12 18C14 24 17 28 20 32" stroke="#D97A3E" stroke-width="3" stroke-linecap="round"/><line x1="6" y1="10" x2="8" y2="10" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="10" x2="20" y2="10" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="14" r="1.5" fill="#D97A3E"/><line x1="6" y1="26" x2="8" y2="26" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><circle cx="5" cy="22" r="1.5" fill="#D97A3E"/></svg></a>
+  <div class="nav-links">
+    <a href="pherrix-science.html" >Science</a>
+    <a href="pherrix-pipeline.html" >Pipeline</a>
+    <a href="pherrix-clinical.html">Clinical</a>
+    <a href="pherrix-team.html" >Team</a>
+    <a href="pherrix-contact.html" class='active'>Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero fade-up">
+  <p class="page-hero-label">Contact</p>
+  <h1>Partner with <span>Pherrix</span></h1>
+  <p>We welcome inquiries from potential partners, investors, and collaborators interested in advancing precision RNA therapeutics.</p>
+</section>
+
+<section class="section fade-up">
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h3>Get in touch</h3>
+      <p>Whether you're a pharmaceutical partner, academic collaborator, or investor, we'd love to hear from you.</p>
+
+      <div class="contact-detail fade-up">
+        <i class="ti ti-user"></i>
+        <div>
+          <span>Vivek Shinde Patil, PhD</span>
+          <small>Co-Founder & CEO</small>
+        </div>
+      </div>
+
+      <div class="contact-detail fade-up">
+        <i class="ti ti-mail"></i>
+        <div>
+          <span>vivek@pherrixtx.com</span>
+          <small>General inquiries</small>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;padding:24px;background:var(--bg-cool);border-radius:12px" class="fade-up">
+        <p style="font-size:13px;font-weight:600;color:var(--deep-blue);margin-bottom:8px">Areas of interest</p>
+        <p style="font-size:13px;line-height:1.7;color:var(--text-muted)">Strategic partnerships &amp; licensing, clinical collaboration, investment opportunities, academic research collaboration, CMC &amp; manufacturing partnerships</p>
+      </div>
+    </div>
+
+    <div class="contact-form fade-up">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your full name">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@company.com">
+
+      <label for="org">Organization</label>
+      <input type="text" id="org" placeholder="Company or institution">
+
+      <label for="interest">Area of interest</label>
+      <select id="interest">
+        <option value="">Select one...</option>
+        <option>Strategic partnership</option>
+        <option>Investment inquiry</option>
+        <option>Clinical collaboration</option>
+        <option>Academic research</option>
+        <option>Other</option>
+      </select>
+
+      <label for="msg">Message</label>
+      <textarea id="msg" placeholder="Tell us about your interest in Pherrix..."></textarea>
+
+      <button type="button">Send Inquiry</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>&copy; 2026 Pherrix. All rights reserved.</span>
+  <span>vivek@pherrixtx.com</span>
+</footer>
+<script>
+const els=document.querySelectorAll('.fade-up');
+const obs=new IntersectionObserver(e=>{e.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('visible'),i*80);obs.unobserve(en.target)}})},{threshold:0.1});
+let d=0;els.forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight){setTimeout(()=>el.classList.add('visible'),d);d+=100}else{obs.observe(el)}});
+</script>
+</body></html>

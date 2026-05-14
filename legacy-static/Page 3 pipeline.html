@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline — Pherrix</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --deep-blue:#0C2D5A;--mid-blue:#1A5DAB;--bright-blue:#3AACEB;--soft-blue:#5B8FBF;
+  --orange:#D97A3E;--orange-light:#E8893A;
+  --bg:#FFFFFF;--bg-cool:#F5F8FC;--bg-panel:#EEF2F7;
+  --text-muted:#6B89A8;--text-light:#94ADBE;--border:#E0E8F0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--deep-blue);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--deep-blue)}
+.logo svg{margin-left:-1px;margin-bottom:-2px}
+.nav-links{display:flex;gap:36px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-muted);transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--deep-blue)}
+.nav-links a.active{border-bottom:2px solid var(--orange);padding-bottom:2px}
+.page-hero{padding:64px 48px 48px;max-width:1080px;margin:0 auto}
+.page-hero-label{font-size:12px;font-weight:600;letter-spacing:0.14em;color:var(--orange);text-transform:uppercase;margin-bottom:16px}
+.page-hero h1{font-size:42px;font-weight:400;line-height:1.15;letter-spacing:-0.025em;font-family:"DM Serif Display",serif;margin-bottom:20px;max-width:700px}
+.page-hero h1 span{color:var(--orange)}
+.page-hero p{font-size:17px;line-height:1.75;color:var(--text-muted);max-width:600px}
+.section{padding:48px 48px;max-width:1080px;margin:0 auto}
+.section--alt{background:var(--bg-cool);max-width:none;padding:56px 48px}
+.section--alt .section-inner{max-width:1080px;margin:0 auto}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.12em;color:var(--orange);text-transform:uppercase;margin-bottom:12px}
+.section h2{font-size:28px;font-weight:400;font-family:"DM Serif Display",serif;margin-bottom:16px;letter-spacing:-0.02em}
+.section h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.section p{font-size:15px;line-height:1.7;color:var(--text-muted);max-width:680px}
+.footer{padding:28px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1080px;margin:0 auto;border-top:1px solid var(--border);font-size:12px;color:var(--text-light)}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:28px;transition:box-shadow 0.3s,transform 0.3s}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(12,45,90,0.08)}
+@media(max-width:900px){.nav{padding:16px 24px}.nav-links{gap:20px}.page-hero,.section{padding-left:24px;padding-right:24px}.page-hero h1{font-size:32px}.footer{padding:24px}}
+@media(max-width:600px){.nav-links{display:none}.page-hero h1{font-size:28px}}
+
+.pipeline-track{margin:32px 0;overflow-x:auto}
+.pipeline-table{width:100%;border-collapse:collapse;min-width:700px}
+.pipeline-table th{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);padding:12px 16px;text-align:center;border-bottom:2px solid var(--border)}
+.pipeline-table th:first-child{text-align:left}
+.pipeline-table td{padding:14px 16px;border-bottom:1px solid var(--border);text-align:center;font-size:14px;color:var(--text-muted)}
+.pipeline-table td:first-child{text-align:left;font-weight:600;color:var(--deep-blue)}
+.pipeline-table td:nth-child(2){color:var(--text-muted);font-weight:400;font-size:13px}
+.prog-bar{height:8px;border-radius:4px;position:relative}
+.prog-fill{height:100%;border-radius:4px;position:absolute;left:0;top:0}
+.target-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:24px}
+.target-card{padding:24px;border-radius:12px;background:var(--bg-cool);border-left:3px solid var(--orange)}
+.target-card h4{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--deep-blue)}
+.target-card p{font-size:13px;line-height:1.6;color:var(--text-muted);max-width:100%}
+.clinical-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.clin-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:24px}
+.clin-card h4{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:16px}
+.clin-stat{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.clin-num{font-size:32px;font-weight:400;font-family:"DM Serif Display",serif;color:var(--deep-blue)}
+.clin-label{font-size:14px;color:var(--text-muted)}
+.clin-detail{font-size:13px;color:var(--text-light);line-height:1.5;margin-bottom:16px}
+.clin-divider{height:1px;background:var(--border);margin:16px 0}
+.clin-quote{font-size:14px;color:var(--text-muted);font-style:italic;line-height:1.6;margin-top:24px;padding:20px 24px;background:var(--bg-cool);border-radius:10px;border-left:3px solid var(--orange)}
+.clin-link{font-size:13px;color:var(--mid-blue);display:inline-flex;align-items:center;gap:4px;margin-top:16px;font-weight:500}
+.clin-link:hover{color:var(--deep-blue)}
+@media(max-width:900px){.clinical-grid,.target-grid{grid-template-columns:1fr}}
+</style></head><body>
+<nav class="nav">
+  <a href="pherrix-homepage.html" class="logo">Pherri<svg width="22" height="30" viewBox="0 0 24 36" fill="none"><path d="M4 4C7 8 10 12 12 18C14 12 17 8 20 4" stroke="#D97A3E" stroke-width="3" stroke-linecap="round"/><path d="M4 32C7 28 10 24 12 18C14 24 17 28 20 32" stroke="#D97A3E" stroke-width="3" stroke-linecap="round"/><line x1="6" y1="10" x2="8" y2="10" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="10" x2="20" y2="10" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="14" r="1.5" fill="#D97A3E"/><line x1="6" y1="26" x2="8" y2="26" stroke="#D97A3E" stroke-width="2" stroke-linecap="round"/><circle cx="5" cy="22" r="1.5" fill="#D97A3E"/></svg></a>
+  <div class="nav-links">
+    <a href="pherrix-science.html" >Science</a>
+    <a href="pherrix-pipeline.html" class='active'>Pipeline</a>
+    <a href="pherrix-clinical.html">Clinical</a>
+    <a href="pherrix-team.html" >Team</a>
+    <a href="pherrix-contact.html" >Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero fade-up">
+  <p class="page-hero-label">Pipeline</p>
+  <h1>Advancing LockMiR™ to treat <span>multiple diseases</span></h1>
+  <p>Our pipeline spans oncology, CNS diseases, and fibrosis — with our lead candidate PRX-474 in clinical development for advanced solid tumors, and emerging evidence of benefit in chemotherapy-induced peripheral neuropathy.</p>
+</section>
+
+<section class="section fade-up">
+  <div class="pipeline-track">
+    <table class="pipeline-table">
+      <thead>
+        <tr>
+          <th style="width:140px">Program</th>
+          <th style="width:180px">Indication</th>
+          <th>Preclinical</th>
+          <th>IND Enabling</th>
+          <th>Phase 1</th>
+          <th>Phase 2</th>
+          <th>Phase 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="fade-up">
+          <td style="color:var(--orange);font-weight:700">PRX-474</td>
+          <td>Advanced Solid Tumors</td>
+          <td style="position:relative"><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:100%;background:var(--mid-blue)"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:100%;background:var(--mid-blue)"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:60%;background:linear-gradient(90deg,var(--mid-blue),var(--orange))"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+        </tr>
+        <tr class="fade-up">
+          <td>PRX-334</td>
+          <td>CNS Diseases</td>
+          <td><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:100%;background:var(--mid-blue)"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:40%;background:var(--mid-blue)"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+        </tr>
+        <tr class="fade-up">
+          <td>PRX-376</td>
+          <td>Cancer & Fibrosis</td>
+          <td><div class="prog-bar" style="background:var(--border)"><div class="prog-fill" style="width:70%;background:var(--mid-blue)"></div></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+          <td><div class="prog-bar" style="background:var(--border)"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section--alt">
+  <div class="section-inner">
+    <h2 class="fade-up" style="font-size:32px;font-family:'DM Serif Display',serif;margin-bottom:8px;letter-spacing:-0.02em">Lead Candidate: <span style="color:var(--orange)">PRX-474</span> Inhibits miR-221</h2>
+    <h3 class="fade-up" style="font-size:20px;font-weight:400;color:var(--text-muted);margin-bottom:0;font-family:'DM Serif Display',serif">Why is miR-221 a prime therapeutic target?</h3>
+    <p class="fade-up" style="margin-bottom:0">Broad therapeutic potential across multiple tumor types — covering 75-80% of all cancer indications.</p>
+    <div class="target-grid">
+      <div class="target-card fade-up">
+        <h4><i class="ti ti-trophy" style="color:var(--orange);margin-right:6px"></i>First-in-class opportunity</h4>
+        <p>Represents a first-in-class therapeutic opportunity to directly target miR-221 in oncology.</p>
+      </div>
+      <div class="target-card fade-up">
+        <h4><i class="ti ti-circles-relation" style="color:var(--orange);margin-right:6px"></i>Widely overexpressed</h4>
+        <p>Overexpressed across multiple cancer types including hematological malignancies and solid tumors.</p>
+      </div>
+      <div class="target-card fade-up">
+        <h4><i class="ti ti-shield-off" style="color:var(--orange);margin-right:6px"></i>Suppresses tumor suppressors</h4>
+        <p>Directly suppresses CDKN1B/p27 (cell cycle control) and PTEN (tumor suppression).</p>
+      </div>
+      <div class="target-card fade-up">
+        <h4><i class="ti ti-trending-up" style="color:var(--orange);margin-right:6px"></i>Strong preclinical evidence</h4>
+        <p>Inhibiting miR-221 using PRX-474 leads to impressive anti-tumor activity and upregulation of tumor suppressor genes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="clinical">
+  <div style="background:linear-gradient(135deg,#062E5B,#1B3A5E);border-radius:14px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px" class="fade-up">
+    <div>
+      <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;color:var(--orange);text-transform:uppercase;margin-bottom:10px">Phase 1a Results: PRX-474</p>
+      <div style="display:flex;gap:40px;align-items:baseline;flex-wrap:wrap">
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-size:32px;font-family:'DM Serif Display',serif;color:#fff">0</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6)">grade 3–4 toxicities</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-size:32px;font-family:'DM Serif Display',serif;color:#fff">56%</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6)">disease control rate</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-size:32px;font-family:'DM Serif Display',serif;color:#fff">44+</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6)">months durable response</span>
+        </div>
+      </div>
+    </div>
+    <a href="pherrix-clinical.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:600;white-space:nowrap;transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 24px rgba(217,122,62,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">View Clinical Data <i class="ti ti-arrow-right" style="font-size:16px"></i></a>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>&copy; 2026 Pherrix. All rights reserved.</span>
+  <span>vivek@pherrixtx.com</span>
+</footer>
+<script>
+const els=document.querySelectorAll('.fade-up');
+const obs=new IntersectionObserver(e=>{e.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('visible'),i*80);obs.unobserve(en.target)}})},{threshold:0.1});
+let d=0;els.forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight){setTimeout(()=>el.classList.add('visible'),d);d+=100}else{obs.observe(el)}});
+</script>
+</body></html>
