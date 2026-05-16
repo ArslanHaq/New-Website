@@ -25,6 +25,16 @@ export const metadata: Metadata = {
     template: "%s - Pherrix",
   },
   description: site.description,
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

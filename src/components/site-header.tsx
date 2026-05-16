@@ -11,6 +11,10 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  if (pathname === "/") {
+    return null;
+  }
+
   const renderNavLinks = (variant: "desktop" | "mobile") => (
     <>
       {navItems.map((item) => {
