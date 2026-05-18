@@ -11,6 +11,12 @@ type ContactPayload = {
   companyWebsite?: string;
 };
 
+type EmailContent = {
+  subject: string;
+  text: string;
+  html: string;
+};
+
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
@@ -51,6 +57,10 @@ function escapeHtml(value: string) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function sanitizeHeader(value: string) {
+  return value.replace(/[\r\n]+/g, " ").trim();
 }
 
 function normalizePayload(input: unknown): ContactPayload {
@@ -95,8 +105,62 @@ function validatePayload(payload: ContactPayload) {
   return null;
 }
 
-function buildEmail(payload: ContactPayload) {
-  const subject = `Pherrix website inquiry: ${payload.interest}`;
+function detailRow(label: string, value: string) {
+  return `
+    <tr>
+      <td style="padding:12px 0;border-bottom:1px solid #E6EDF5;color:#6380A8;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">${label}</td>
+      <td style="padding:12px 0;border-bottom:1px solid #E6EDF5;color:#0C2D5A;font-size:15px;font-weight:700;text-align:right">${escapeHtml(value)}</td>
+    </tr>
+  `;
+}
+
+function renderEmailShell({
+  preheader,
+  headline,
+  intro,
+  children,
+}: {
+  preheader: string;
+  headline: string;
+  intro: string;
+  children: string;
+}) {
+  return `
+    <!doctype html>
+    <html>
+      <body style="margin:0;background:#F3F8FC;padding:0;font-family:Arial,Helvetica,sans-serif;color:#0C2D5A">
+        <div style="display:none;max-height:0;overflow:hidden;opacity:0">${escapeHtml(preheader)}</div>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F3F8FC;padding:32px 16px">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;overflow:hidden;border-radius:24px;background:#FFFFFF;box-shadow:0 22px 60px rgba(12,45,90,0.12)">
+                <tr>
+                  <td style="background:linear-gradient(135deg,#0C2D5A 0%,#116FA3 56%,#EA7B1F 100%);padding:30px 32px;color:#FFFFFF">
+                    <div style="font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1">Pherrix</div>
+                    <div style="margin-top:12px;width:72px;height:4px;border-radius:999px;background:#EA7B1F"></div>
+                    <h1 style="margin:24px 0 0;font-size:30px;line-height:1.18;font-weight:800">${escapeHtml(headline)}</h1>
+                    <p style="margin:12px 0 0;color:#EAF6FF;font-size:16px;line-height:1.65">${escapeHtml(intro)}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:30px 32px 34px">
+                    ${children}
+                    <p style="margin:28px 0 0;color:#6380A8;font-size:13px;line-height:1.7">
+                      This email was sent from the Pherrix website contact form.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `;
+}
+
+function buildAdminEmail(payload: ContactPayload): EmailContent {
+  const subject = sanitizeHeader(`Pherrix website inquiry: ${payload.interest}`);
   const lines = [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -106,22 +170,87 @@ function buildEmail(payload: ContactPayload) {
     payload.message,
   ];
 
-  const html = `
-    <div style="font-family:Arial,sans-serif;color:#0C2D5A;line-height:1.55">
-      <h2 style="margin:0 0 16px">New Pherrix website inquiry</h2>
-      <p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>
-      <p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>
-      <p><strong>Organization:</strong> ${escapeHtml(payload.organization || "Not provided")}</p>
-      <p><strong>Interest:</strong> ${escapeHtml(payload.interest)}</p>
-      <hr style="border:none;border-top:1px solid #E0E8F0;margin:20px 0" />
-      <p style="white-space:pre-wrap">${escapeHtml(payload.message)}</p>
+  const details = `
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 24px">
+      ${detailRow("Name", payload.name)}
+      ${detailRow("Email", payload.email)}
+      ${detailRow("Organization", payload.organization || "Not provided")}
+      ${detailRow("Interest", payload.interest)}
+    </table>
+    <div style="border-left:4px solid #EA7B1F;border-radius:16px;background:#F8FBFF;padding:20px 22px">
+      <div style="margin:0 0 10px;color:#EA7B1F;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em">Message</div>
+      <div style="white-space:pre-wrap;color:#0C2D5A;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
     </div>
   `;
 
   return {
     subject,
     text: lines.join("\n"),
-    html,
+    html: renderEmailShell({
+      preheader: `New inquiry from ${payload.name}`,
+      headline: "New website inquiry",
+      intro: "A visitor submitted the Pherrix contact form.",
+      children: details,
+    }),
+  };
+}
+
+function buildSenderCopyEmail(
+  payload: ContactPayload,
+  contactEmail: string,
+): EmailContent {
+  const subject = "We received your Pherrix inquiry";
+  const firstName = payload.name.split(/\s+/)[0] || "there";
+  const lines = [
+    `Hi ${firstName},`,
+    "",
+    "Thank you for contacting Pherrix. We received your inquiry and our team will review it.",
+    "",
+    "Here is a copy of your submission:",
+    `Name: ${payload.name}`,
+    `Email: ${payload.email}`,
+    `Organization: ${payload.organization || "Not provided"}`,
+    `Interest: ${payload.interest}`,
+    "",
+    payload.message,
+    "",
+    `You can also reach us directly at ${contactEmail}.`,
+    "",
+    "Pherrix",
+  ];
+
+  const details = `
+    <p style="margin:0 0 20px;color:#5D789D;font-size:16px;line-height:1.75">
+      Hi ${escapeHtml(firstName)}, thank you for contacting Pherrix. We received your inquiry and our team will review it.
+    </p>
+    <div style="margin:0 0 24px;border-radius:18px;background:linear-gradient(135deg,#FFF6EE,#F3FAFF);padding:22px;border:1px solid #E8EEF5">
+      <div style="margin:0 0 14px;color:#EA7B1F;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em">Your submission copy</div>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+        ${detailRow("Name", payload.name)}
+        ${detailRow("Email", payload.email)}
+        ${detailRow("Organization", payload.organization || "Not provided")}
+        ${detailRow("Interest", payload.interest)}
+      </table>
+    </div>
+    <div style="border-left:4px solid #EA7B1F;border-radius:16px;background:#F8FBFF;padding:20px 22px">
+      <div style="margin:0 0 10px;color:#EA7B1F;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em">Message</div>
+      <div style="white-space:pre-wrap;color:#0C2D5A;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
+    </div>
+    <p style="margin:24px 0 0;color:#5D789D;font-size:15px;line-height:1.7">
+      For anything urgent, you can reach us directly at
+      <a href="mailto:${escapeHtml(contactEmail)}" style="color:#EA7B1F;font-weight:700;text-decoration:none">${escapeHtml(contactEmail)}</a>.
+    </p>
+  `;
+
+  return {
+    subject,
+    text: lines.join("\n"),
+    html: renderEmailShell({
+      preheader: "A copy of your Pherrix contact form submission.",
+      headline: "We received your inquiry",
+      intro: "Here is a copy of the message you sent to Pherrix.",
+      children: details,
+    }),
   };
 }
 
@@ -134,6 +263,7 @@ async function sendWithSmtp(payload: ContactPayload) {
   const secure = process.env.SMTP_SECURE === "true";
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL;
+  const replyTo = process.env.CONTACT_REPLY_TO_EMAIL || to;
 
   if (!host || !to || !from) {
     throw new Error("SMTP email is not configured.");
@@ -145,15 +275,25 @@ async function sendWithSmtp(payload: ContactPayload) {
     secure,
     auth: user && pass ? { user, pass } : undefined,
   });
-  const email = buildEmail(payload);
+  const adminEmail = buildAdminEmail(payload);
+  const senderCopyEmail = buildSenderCopyEmail(payload, to);
 
   await transporter.sendMail({
     from,
     to,
     replyTo: payload.email,
-    subject: email.subject,
-    text: email.text,
-    html: email.html,
+    subject: adminEmail.subject,
+    text: adminEmail.text,
+    html: adminEmail.html,
+  });
+
+  await transporter.sendMail({
+    from,
+    to: payload.email,
+    replyTo,
+    subject: senderCopyEmail.subject,
+    text: senderCopyEmail.text,
+    html: senderCopyEmail.html,
   });
 }
 
@@ -166,26 +306,74 @@ async function sendWithResend(payload: ContactPayload) {
     throw new Error("Resend email is not configured.");
   }
 
-  const email = buildEmail(payload);
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to,
-      reply_to: payload.email,
-      subject: email.subject,
-      text: email.text,
-      html: email.html,
-    }),
-  });
+  const replyTo = process.env.CONTACT_REPLY_TO_EMAIL || to;
 
-  if (!response.ok) {
-    throw new Error("Resend failed to send the email.");
+  async function sendEmail({
+    recipient,
+    replyToEmail,
+    email,
+  }: {
+    recipient: string;
+    replyToEmail: string;
+    email: EmailContent;
+  }) {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: recipient,
+        reply_to: replyToEmail,
+        subject: email.subject,
+        text: email.text,
+        html: email.html,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Resend failed to send the email.");
+    }
   }
+
+  await sendEmail({
+    recipient: to,
+    replyToEmail: payload.email,
+    email: buildAdminEmail(payload),
+  });
+  await sendEmail({
+    recipient: payload.email,
+    replyToEmail: replyTo,
+    email: buildSenderCopyEmail(payload, to),
+  });
+}
+
+async function sendConsole(payload: ContactPayload) {
+  const to = process.env.CONTACT_TO_EMAIL || "Pherrix";
+  const adminEmail = buildAdminEmail(payload);
+  const senderCopyEmail = buildSenderCopyEmail(payload, to);
+
+  console.info(
+    "[contact-form]",
+    JSON.stringify(
+      {
+        admin: {
+          to,
+          subject: adminEmail.subject,
+          text: adminEmail.text,
+        },
+        senderCopy: {
+          to: payload.email,
+          subject: senderCopyEmail.subject,
+          text: senderCopyEmail.text,
+        },
+      },
+      null,
+      2,
+    ),
+  );
 }
 
 async function deliverEmail(payload: ContactPayload) {
@@ -201,8 +389,7 @@ async function deliverEmail(payload: ContactPayload) {
     return;
   }
 
-  const email = buildEmail(payload);
-  console.info("[contact-form]", email.subject, email.text);
+  await sendConsole(payload);
 }
 
 export async function POST(request: NextRequest) {
@@ -240,7 +427,7 @@ export async function POST(request: NextRequest) {
   try {
     await deliverEmail(payload);
     return NextResponse.json({
-      message: "Thank you. Your inquiry has been sent.",
+      message: "Thank you. Your inquiry has been sent. A copy has also been emailed to you.",
     });
   } catch (error) {
     console.error("[contact-form]", error);

@@ -16,6 +16,8 @@ type MosaicPanel = {
   icon: IconName;
   className: string;
   tone: "image-blue" | "image-cell" | "deep" | "orange" | "light-blue";
+  image?: string;
+  imagePosition?: string;
 };
 
 const mosaicPanels: MosaicPanel[] = [
@@ -26,6 +28,8 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "dna",
     tone: "image-blue",
     className: "lg:col-start-1 lg:col-span-4 lg:row-start-1 lg:row-span-3",
+    image: "/assets/dna-presentation-bg.jpeg",
+    imagePosition: "55% 50%",
     description:
       "How LockMiR reprograms tumor behavior upstream of protein targets.",
   },
@@ -36,6 +40,8 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "chart",
     tone: "image-cell",
     className: "lg:col-start-5 lg:col-span-4 lg:row-start-1 lg:row-span-5",
+    image: "/assets/pherrix-wall-logo.jpg",
+    imagePosition: "47% 50%",
     description:
       "Three therapeutic programs across oncology, CNS diseases, and fibrosis.",
   },
@@ -56,6 +62,8 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "lock",
     tone: "image-cell",
     className: "lg:col-start-9 lg:col-span-4 lg:row-start-3 lg:row-span-3",
+    image: "/assets/lockmir-logo.png",
+    imagePosition: "50% 50%",
     description:
       "A tunable LNA-based platform designed for precision, stability, and durability.",
   },
@@ -66,6 +74,8 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "users",
     tone: "deep",
     className: "lg:col-start-1 lg:col-span-4 lg:row-start-4 lg:row-span-3",
+    image: "/assets/dna-presentation-bg.jpeg",
+    imagePosition: "18% 52%",
     description:
       "Scientific, clinical, regulatory, and company-building expertise.",
   },
@@ -76,6 +86,8 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "shield",
     tone: "deep",
     className: "lg:col-start-5 lg:col-span-4 lg:row-start-6 lg:row-span-3",
+    image: "/assets/pherrix-mark.png",
+    imagePosition: "82% 48%",
     description:
       "Safety, tolerability, pharmacodynamics, and early activity signals.",
   },
@@ -103,72 +115,28 @@ const mosaicPanels: MosaicPanel[] = [
 
 const panelToneClass: Record<MosaicPanel["tone"], string> = {
   "image-blue":
-    "bg-[#0b6f91] text-white before:bg-[radial-gradient(circle_at_18%_22%,rgba(255,255,255,0.92)_0_2px,transparent_3px),radial-gradient(circle_at_72%_32%,rgba(255,255,255,0.7)_0_1px,transparent_2px),radial-gradient(circle_at_46%_64%,rgba(255,255,255,0.55)_0_2px,transparent_3px),linear-gradient(135deg,rgba(6,46,91,0.12),rgba(73,157,232,0.42))]",
+    "bg-[#117fa9] text-white before:bg-[radial-gradient(circle_at_20%_14%,rgba(255,255,255,0.62),transparent_22%),linear-gradient(135deg,rgba(234,123,31,0.24),rgba(22,154,207,0.62)_42%,rgba(6,46,91,0.32))]",
   "image-cell":
-    "bg-[#078b9c] text-white before:bg-[radial-gradient(ellipse_at_42%_46%,rgba(255,255,255,0.72)_0_8%,transparent_9%),repeating-radial-gradient(ellipse_at_50%_50%,rgba(255,255,255,0.2)_0_2px,transparent_3px_12px),linear-gradient(135deg,rgba(6,46,91,0.28),rgba(0,196,202,0.35))]",
-  deep: "bg-[#08213f] text-white before:bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_55%)]",
+    "bg-[#0aa3b8] text-white before:bg-[radial-gradient(circle_at_28%_20%,rgba(255,255,255,0.5),transparent_20%),linear-gradient(140deg,rgba(234,123,31,0.18),rgba(0,196,202,0.46)_48%,rgba(5,27,52,0.7))]",
+  deep: "bg-[#0c2d5a] text-white before:bg-[radial-gradient(circle_at_18%_16%,rgba(255,255,255,0.18),transparent_26%),linear-gradient(140deg,rgba(234,123,31,0.25),rgba(18,55,100,0.74)_44%,rgba(4,17,34,0.92))]",
   orange:
-    "bg-orange-flow text-white before:bg-[radial-gradient(circle_at_78%_12%,rgba(255,255,255,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.1),transparent_60%)]",
+    "bg-[#EA7B1F] text-white before:bg-[radial-gradient(circle_at_78%_10%,rgba(255,255,255,0.46),transparent_32%),linear-gradient(135deg,#f7a544,#EA7B1F_45%,#c95010)]",
   "light-blue":
-    "bg-[#168ac3] text-white before:bg-[linear-gradient(135deg,rgba(255,255,255,0.16),transparent_52%)]",
+    "bg-[#159ad1] text-white before:bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,#39bae8,#159ad1_52%,#0c5d99)]",
 };
 
-function WhiteLogo() {
+function BrandLogo() {
   return (
-    <Link href="/" className="inline-flex items-center" aria-label="Pherrix home">
-      <span className="text-4xl font-bold leading-none tracking-normal text-white">
-        Pherri
-      </span>
-      <svg
-        width="28"
-        height="38"
-        viewBox="0 0 24 36"
-        fill="none"
-        className="-ml-0.5 translate-y-0.5"
-        aria-hidden="true"
-      >
-        <path
-          d="M4 4C7 8 10 12 12 18C14 12 17 8 20 4"
-          stroke="#E8893A"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M4 32C7 28 10 24 12 18C14 24 17 28 20 32"
-          stroke="#E8893A"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <line
-          x1="6"
-          y1="10"
-          x2="8"
-          y2="10"
-          stroke="#E8893A"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <line
-          x1="18"
-          y1="10"
-          x2="20"
-          y2="10"
-          stroke="#E8893A"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <circle cx="20" cy="14" r="1.5" fill="#E8893A" />
-        <line
-          x1="6"
-          y1="26"
-          x2="8"
-          y2="26"
-          stroke="#E8893A"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <circle cx="5" cy="22" r="1.5" fill="#E8893A" />
-      </svg>
+    <Link
+      href="/"
+      className="inline-flex rounded-2xl bg-white px-4 py-3 shadow-[0_18px_50px_rgba(12,45,90,0.16)] ring-1 ring-white/80"
+      aria-label="Pherrix home"
+    >
+      <img
+        src="/assets/pherrix-logo.png"
+        alt="Pherrix"
+        className="h-auto w-[190px] max-w-full"
+      />
     </Link>
   );
 }
@@ -253,19 +221,31 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
     <Link
       href={panel.href}
       className={[
-        "group relative flex min-h-[230px] overflow-hidden border border-[#071a2f] p-6 transition duration-300 before:absolute before:inset-0 before:content-[''] hover:z-10 hover:scale-[1.012] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-0 lg:p-6",
+        "group relative flex min-h-[230px] overflow-hidden rounded-[24px] border border-white/25 p-6 shadow-[0_22px_58px_rgba(6,46,91,0.18)] transition duration-300 before:absolute before:inset-0 before:z-[1] before:content-[''] hover:z-10 hover:scale-[1.012] hover:shadow-[0_28px_80px_rgba(234,123,31,0.24)] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-0 lg:p-6",
         panel.className,
         panelToneClass[panel.tone],
       ].join(" ")}
       style={{ animationDelay: `${index * 55}ms` }}
     >
-      <span className="absolute inset-0 before:absolute before:inset-0" />
-      {panel.tone.startsWith("image") ? (
+      {panel.image ? (
+        <img
+          src={panel.image}
+          alt=""
+          className={[
+            "absolute inset-0 h-full w-full scale-105 object-cover transition duration-700 group-hover:scale-110",
+            panel.tone === "deep" ? "opacity-20" : "opacity-[0.58]",
+          ].join(" ")}
+          style={{ objectPosition: panel.imagePosition }}
+        />
+      ) : null}
+      {panel.tone.startsWith("image") && !panel.image ? (
         <ScienceTexture variant={textureVariant} />
       ) : null}
-      <span className="absolute inset-0 bg-gradient-to-t from-[#031b31]/82 via-[#031b31]/18 to-transparent" />
+      <span className="absolute inset-0 z-[2] bg-[linear-gradient(135deg,rgba(255,255,255,0.3),transparent_34%),linear-gradient(to_top,rgba(4,20,38,0.92),rgba(4,20,38,0.38)_54%,rgba(255,255,255,0.04))]" />
+      <span className="absolute inset-x-0 top-0 z-[3] h-px bg-white/70" />
+      <span className="absolute -right-12 -top-16 z-[3] h-44 w-44 rounded-full bg-white/18 blur-2xl transition duration-700 group-hover:scale-125" />
       <span className="relative z-10 flex h-full w-full flex-col justify-end">
-        <span className="mb-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.12] text-white ring-1 ring-white/20">
+        <span className="mb-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/20 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] ring-1 ring-white/35 backdrop-blur-md">
           <AppIcon name={panel.icon} className="h-5 w-5" />
         </span>
         <span className="mb-4 block h-0.5 w-24 bg-white" />
@@ -294,36 +274,43 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
 
 export default function Home() {
   return (
-    <section className="bg-[#081018] text-white">
-      <div className="grid min-h-svh lg:h-svh lg:grid-cols-[minmax(300px,360px)_1fr] lg:overflow-hidden">
-        <aside className="flex min-h-[560px] flex-col justify-between border-b border-[#071a2f] bg-[#151a20] px-6 py-10 sm:px-10 lg:h-svh lg:border-b-0 lg:border-r lg:overflow-hidden lg:py-8">
-          <div>
-            <WhiteLogo />
+    <section className="min-h-svh overflow-hidden bg-[radial-gradient(circle_at_16%_18%,rgba(234,123,31,0.24),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(57,186,232,0.26),transparent_36%),linear-gradient(135deg,#f8fbff_0%,#eaf7ff_36%,#fff3e9_100%)] p-3 text-ink sm:p-4 lg:p-5">
+      <div className="grid min-h-[calc(100svh-1.5rem)] gap-4 lg:h-[calc(100svh-2.5rem)] lg:grid-cols-[minmax(310px,380px)_1fr] lg:overflow-hidden">
+        <aside className="relative flex min-h-[590px] flex-col justify-between overflow-hidden rounded-[30px] border border-white/75 bg-white/82 px-6 py-8 shadow-[0_28px_90px_rgba(12,45,90,0.18)] backdrop-blur-xl sm:px-9 lg:h-full lg:py-8">
+          <span className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(234,123,31,0.28),transparent_28%),radial-gradient(circle_at_14%_92%,rgba(73,157,232,0.24),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.68))]" />
+          <img
+            src="/assets/dna-presentation-bg.jpeg"
+            alt=""
+            className="absolute inset-x-0 bottom-0 h-[46%] w-full object-cover opacity-30 mix-blend-multiply"
+          />
+          <span className="absolute inset-x-6 top-0 h-px bg-white" />
+          <div className="relative z-10">
+            <BrandLogo />
             <div className="mt-10 max-w-[18rem]">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-ember">
+              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#EA7B1F]">
                 Precision RNA Therapeutics
               </p>
-              <h1 className="font-serif text-4xl font-normal leading-tight text-white lg:text-[2.15rem]">
+              <h1 className="font-serif text-4xl font-normal leading-tight text-ink lg:text-[2.35rem]">
                 Targeting disease-driving microRNAs
               </h1>
-              <div className="mt-5 h-0.5 w-16 bg-white" />
-              <p className="mt-5 text-base leading-8 text-white/70 lg:text-[0.9rem] lg:leading-6">
+              <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-[#EA7B1F] via-[#ff9d3f] to-[#0aa3b8]" />
+              <p className="mt-5 text-base leading-8 text-muted lg:text-[0.94rem] lg:leading-7">
                 Pherrix is a clinical-stage therapeutics company focused on
                 noncoding RNA dysregulation and proprietary LockMiR technology.
               </p>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-4">
-            <div className="grid grid-cols-3 gap-3 border-y border-white/10 py-5">
+          <div className="relative z-10 mt-8 grid gap-4">
+            <div className="grid grid-cols-3 gap-3 rounded-2xl border border-white/70 bg-white/68 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur">
               {[
                 ["Phase 1a", "completed"],
                 ["3", "programs"],
                 ["HCC/CRC", "focus"],
               ].map(([value, label]) => (
                 <div key={label}>
-                  <p className="font-serif text-2xl text-white">{value}</p>
-                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.12em] text-white/50">
+                  <p className="font-serif text-2xl text-ink">{value}</p>
+                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.12em] text-muted">
                     {label}
                   </p>
                 </div>
@@ -332,7 +319,7 @@ export default function Home() {
 
             <Link
               href="/contact"
-              className="group flex items-center justify-between border border-white/[0.15] bg-white/[0.03] px-5 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:border-ember hover:bg-ember"
+              className="group flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#EA7B1F] via-[#ff8f2f] to-[#d55b13] px-5 py-4 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_42px_rgba(234,123,31,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_55px_rgba(234,123,31,0.44)]"
             >
               Contact Us
               <AppIcon
@@ -340,13 +327,13 @@ export default function Home() {
                 className="h-4 w-4 transition group-hover:translate-x-1"
               />
             </Link>
-            <p className="text-xs text-white/40">
+            <p className="text-xs text-muted">
               &copy; {site.year} Pherrix. Clinical-stage RNA therapeutics.
             </p>
           </div>
         </aside>
 
-        <div className="grid auto-rows-[minmax(220px,auto)] lg:h-svh lg:grid-cols-12 lg:grid-rows-8">
+        <div className="grid auto-rows-[minmax(235px,auto)] gap-3 lg:h-full lg:grid-cols-12 lg:grid-rows-8">
           {mosaicPanels.map((panel, index) => (
             <Panel key={panel.title} panel={panel} index={index} />
           ))}
