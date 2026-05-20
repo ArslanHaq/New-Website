@@ -18,6 +18,8 @@ type MosaicPanel = {
   tone: "image-blue" | "image-cell" | "deep" | "orange" | "light-blue";
   image?: string;
   imagePosition?: string;
+  imageFit?: "cover" | "contain";
+  imageOpacity?: number;
 };
 
 const mosaicPanels: MosaicPanel[] = [
@@ -40,8 +42,10 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "chart",
     tone: "image-cell",
     className: "lg:col-start-5 lg:col-span-4 lg:row-start-1 lg:row-span-5",
-    image: "/assets/pherrix-wall-logo.jpg",
-    imagePosition: "47% 50%",
+    image: "/assets/pherrix-logo.png",
+    imagePosition: "50% 34%",
+    imageFit: "contain",
+    imageOpacity: 0.38,
     description:
       "Three therapeutic programs across oncology, CNS diseases, and fibrosis.",
   },
@@ -87,7 +91,9 @@ const mosaicPanels: MosaicPanel[] = [
     tone: "deep",
     className: "lg:col-start-5 lg:col-span-4 lg:row-start-6 lg:row-span-3",
     image: "/assets/pherrix-mark.png",
-    imagePosition: "82% 48%",
+    imagePosition: "50% 34%",
+    imageFit: "contain",
+    imageOpacity: 0.18,
     description:
       "Safety, tolerability, pharmacodynamics, and early activity signals.",
   },
@@ -115,14 +121,14 @@ const mosaicPanels: MosaicPanel[] = [
 
 const panelToneClass: Record<MosaicPanel["tone"], string> = {
   "image-blue":
-    "bg-[#117fa9] text-white before:bg-[radial-gradient(circle_at_20%_14%,rgba(255,255,255,0.62),transparent_22%),linear-gradient(135deg,rgba(234,123,31,0.24),rgba(22,154,207,0.62)_42%,rgba(6,46,91,0.32))]",
+    "bg-[#0067B4] text-white before:bg-[radial-gradient(circle_at_20%_14%,rgba(255,255,255,0.62),transparent_22%),linear-gradient(135deg,rgba(234,123,31,0.18),rgba(0,204,214,0.56)_42%,rgba(0,58,112,0.42))]",
   "image-cell":
-    "bg-[#0aa3b8] text-white before:bg-[radial-gradient(circle_at_28%_20%,rgba(255,255,255,0.5),transparent_20%),linear-gradient(140deg,rgba(234,123,31,0.18),rgba(0,196,202,0.46)_48%,rgba(5,27,52,0.7))]",
-  deep: "bg-[#0c2d5a] text-white before:bg-[radial-gradient(circle_at_18%_16%,rgba(255,255,255,0.18),transparent_26%),linear-gradient(140deg,rgba(234,123,31,0.25),rgba(18,55,100,0.74)_44%,rgba(4,17,34,0.92))]",
+    "bg-[#00CCD6] text-white before:bg-[radial-gradient(circle_at_28%_20%,rgba(255,255,255,0.5),transparent_20%),linear-gradient(140deg,rgba(234,123,31,0.16),rgba(0,204,214,0.52)_44%,rgba(0,103,180,0.76))]",
+  deep: "bg-[#003A70] text-white before:bg-[radial-gradient(circle_at_18%_16%,rgba(255,255,255,0.2),transparent_26%),linear-gradient(140deg,rgba(234,123,31,0.18),rgba(0,103,180,0.78)_48%,rgba(0,32,64,0.94))]",
   orange:
     "bg-[#EA7B1F] text-white before:bg-[radial-gradient(circle_at_78%_10%,rgba(255,255,255,0.46),transparent_32%),linear-gradient(135deg,#f7a544,#EA7B1F_45%,#c95010)]",
   "light-blue":
-    "bg-[#159ad1] text-white before:bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,#39bae8,#159ad1_52%,#0c5d99)]",
+    "bg-[#0067B4] text-white before:bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,0.36),transparent_28%),linear-gradient(135deg,#00CCD6,#0067B4_56%,#003A70)]",
 };
 
 function BrandLogo() {
@@ -216,12 +222,16 @@ function ScienceTexture({ variant }: { variant: "rna" | "cells" }) {
 
 function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
   const textureVariant = panel.tone === "image-cell" ? "cells" : "rna";
+  const imageFitClass =
+    panel.imageFit === "contain"
+      ? "object-contain scale-100 p-6 group-hover:scale-[1.03] sm:p-8"
+      : "object-cover scale-105 group-hover:scale-110";
 
   return (
     <Link
       href={panel.href}
       className={[
-        "group relative flex min-h-[230px] overflow-hidden rounded-[24px] border border-white/25 p-6 shadow-[0_22px_58px_rgba(6,46,91,0.18)] transition duration-300 before:absolute before:inset-0 before:z-[1] before:content-[''] hover:z-10 hover:scale-[1.012] hover:shadow-[0_28px_80px_rgba(234,123,31,0.24)] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-0 lg:p-6",
+        "group relative flex min-h-[230px] overflow-hidden rounded-[24px] border border-white/25 p-6 shadow-[0_22px_58px_rgba(6,46,91,0.18)] transition duration-300 before:absolute before:inset-0 before:z-[1] before:content-[''] hover:z-10 hover:scale-[1.012] hover:shadow-[0_28px_80px_rgba(234,123,31,0.24)] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-[116px] lg:p-6",
         panel.className,
         panelToneClass[panel.tone],
       ].join(" ")}
@@ -232,10 +242,14 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
           src={panel.image}
           alt=""
           className={[
-            "absolute inset-0 h-full w-full scale-105 object-cover transition duration-700 group-hover:scale-110",
-            panel.tone === "deep" ? "opacity-20" : "opacity-[0.58]",
+            "absolute inset-0 h-full w-full transition duration-700",
+            imageFitClass,
           ].join(" ")}
-          style={{ objectPosition: panel.imagePosition }}
+          style={{
+            objectPosition: panel.imagePosition,
+            opacity:
+              panel.imageOpacity ?? (panel.tone === "deep" ? 0.2 : 0.58),
+          }}
         />
       ) : null}
       {panel.tone.startsWith("image") && !panel.image ? (
@@ -274,10 +288,10 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
 
 export default function Home() {
   return (
-    <section className="min-h-svh overflow-hidden bg-[radial-gradient(circle_at_16%_18%,rgba(234,123,31,0.24),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(57,186,232,0.26),transparent_36%),linear-gradient(135deg,#f8fbff_0%,#eaf7ff_36%,#fff3e9_100%)] p-3 text-ink sm:p-4 lg:p-5">
-      <div className="grid min-h-[calc(100svh-1.5rem)] gap-4 lg:h-[calc(100svh-2.5rem)] lg:grid-cols-[minmax(310px,380px)_1fr] lg:overflow-hidden">
-        <aside className="relative flex min-h-[590px] flex-col justify-between overflow-hidden rounded-[30px] border border-white/75 bg-white/82 px-6 py-8 shadow-[0_28px_90px_rgba(12,45,90,0.18)] backdrop-blur-xl sm:px-9 lg:h-full lg:py-8">
-          <span className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(234,123,31,0.28),transparent_28%),radial-gradient(circle_at_14%_92%,rgba(73,157,232,0.24),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.68))]" />
+    <section className="min-h-svh overflow-x-hidden bg-[radial-gradient(circle_at_16%_18%,rgba(234,123,31,0.22),transparent_30%),radial-gradient(circle_at_86%_8%,rgba(0,204,214,0.24),transparent_36%),linear-gradient(135deg,#f8fbff_0%,#e9f8fb_36%,#fff3e9_100%)] p-3 text-ink sm:p-4 lg:p-5">
+      <div className="grid min-h-[calc(100svh-1.5rem)] gap-4 lg:min-h-[calc(100svh-2.5rem)] lg:grid-cols-[minmax(310px,380px)_1fr]">
+        <aside className="relative flex min-h-[590px] flex-col justify-between overflow-hidden rounded-[30px] border border-white/75 bg-white/82 px-6 py-8 shadow-[0_28px_90px_rgba(12,45,90,0.18)] backdrop-blur-xl sm:px-9 lg:min-h-[calc(100svh-2.5rem)] lg:py-8">
+          <span className="absolute inset-0 bg-[radial-gradient(circle_at_82%_10%,rgba(234,123,31,0.28),transparent_28%),radial-gradient(circle_at_14%_92%,rgba(0,204,214,0.22),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(255,255,255,0.68))]" />
           <img
             src="/assets/dna-presentation-bg.jpeg"
             alt=""
@@ -293,7 +307,7 @@ export default function Home() {
               <h1 className="font-serif text-4xl font-normal leading-tight text-ink lg:text-[2.35rem]">
                 Targeting disease-driving microRNAs
               </h1>
-              <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-[#EA7B1F] via-[#ff9d3f] to-[#0aa3b8]" />
+              <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-[#EA7B1F] via-[#ff9d3f] to-[#00CCD6]" />
               <p className="mt-5 text-base leading-8 text-muted lg:text-[0.94rem] lg:leading-7">
                 Pherrix is a clinical-stage therapeutics company focused on
                 noncoding RNA dysregulation and proprietary LockMiR technology.
@@ -333,7 +347,7 @@ export default function Home() {
           </div>
         </aside>
 
-        <div className="grid auto-rows-[minmax(235px,auto)] gap-3 lg:h-full lg:grid-cols-12 lg:grid-rows-8">
+        <div className="grid auto-rows-[minmax(235px,auto)] gap-3 lg:min-h-[calc(100svh-2.5rem)] lg:grid-cols-12 lg:grid-rows-[repeat(8,minmax(116px,1fr))]">
           {mosaicPanels.map((panel, index) => (
             <Panel key={panel.title} panel={panel} index={index} />
           ))}

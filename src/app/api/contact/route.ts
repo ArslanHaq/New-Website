@@ -109,7 +109,7 @@ function detailRow(label: string, value: string) {
   return `
     <tr>
       <td style="padding:12px 0;border-bottom:1px solid #E6EDF5;color:#6380A8;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">${label}</td>
-      <td style="padding:12px 0;border-bottom:1px solid #E6EDF5;color:#0C2D5A;font-size:15px;font-weight:700;text-align:right">${escapeHtml(value)}</td>
+      <td style="padding:12px 0;border-bottom:1px solid #E6EDF5;color:#003A70;font-size:15px;font-weight:700;text-align:right">${escapeHtml(value)}</td>
     </tr>
   `;
 }
@@ -128,14 +128,14 @@ function renderEmailShell({
   return `
     <!doctype html>
     <html>
-      <body style="margin:0;background:#F3F8FC;padding:0;font-family:Arial,Helvetica,sans-serif;color:#0C2D5A">
+      <body style="margin:0;background:#F3F8FC;padding:0;font-family:Arial,Helvetica,sans-serif;color:#003A70">
         <div style="display:none;max-height:0;overflow:hidden;opacity:0">${escapeHtml(preheader)}</div>
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#F3F8FC;padding:32px 16px">
           <tr>
             <td align="center">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;overflow:hidden;border-radius:24px;background:#FFFFFF;box-shadow:0 22px 60px rgba(12,45,90,0.12)">
                 <tr>
-                  <td style="background:linear-gradient(135deg,#0C2D5A 0%,#116FA3 56%,#EA7B1F 100%);padding:30px 32px;color:#FFFFFF">
+                  <td style="background:linear-gradient(135deg,#003A70 0%,#0067B4 56%,#00CCD6 100%);padding:30px 32px;color:#FFFFFF">
                     <div style="font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1">Pherrix</div>
                     <div style="margin-top:12px;width:72px;height:4px;border-radius:999px;background:#EA7B1F"></div>
                     <h1 style="margin:24px 0 0;font-size:30px;line-height:1.18;font-weight:800">${escapeHtml(headline)}</h1>
@@ -179,7 +179,7 @@ function buildAdminEmail(payload: ContactPayload): EmailContent {
     </table>
     <div style="border-left:4px solid #EA7B1F;border-radius:16px;background:#F8FBFF;padding:20px 22px">
       <div style="margin:0 0 10px;color:#EA7B1F;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em">Message</div>
-      <div style="white-space:pre-wrap;color:#0C2D5A;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
+      <div style="white-space:pre-wrap;color:#003A70;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
     </div>
   `;
 
@@ -234,7 +234,7 @@ function buildSenderCopyEmail(
     </div>
     <div style="border-left:4px solid #EA7B1F;border-radius:16px;background:#F8FBFF;padding:20px 22px">
       <div style="margin:0 0 10px;color:#EA7B1F;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.12em">Message</div>
-      <div style="white-space:pre-wrap;color:#0C2D5A;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
+      <div style="white-space:pre-wrap;color:#003A70;font-size:15px;line-height:1.75">${escapeHtml(payload.message)}</div>
     </div>
     <p style="margin:24px 0 0;color:#5D789D;font-size:15px;line-height:1.7">
       For anything urgent, you can reach us directly at
