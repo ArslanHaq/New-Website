@@ -349,9 +349,17 @@ export default function Home() {
                 className="h-4 w-4 transition group-hover:translate-x-1"
               />
             </Link>
-            <p className="text-xs text-muted">
-              &copy; {site.year} Pherrix. Clinical-stage RNA therapeutics.
-            </p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+              <span>
+                &copy; {site.year} Pherrix. Clinical-stage RNA therapeutics.
+              </span>
+              <Link href="/terms-of-use" className="transition hover:text-ink">
+                Terms of Use
+              </Link>
+              <Link href="/privacy-policy" className="transition hover:text-ink">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </aside>
 

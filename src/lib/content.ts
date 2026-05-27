@@ -4,6 +4,8 @@ export const site = {
   name: "Pherrix",
   email: "vivek@pherrixtx.com",
   year: 2026,
+  legalDocumentUrl:
+    "https://static1.squarespace.com/static/698255a5916e643703cf0218/t/69912bf513c7585ba4ffb247/1771121653818/pp2026.pdf",
   description:
     "Clinical-stage precision RNA therapeutics company developing LockMiR technology for solid tumors and related diseases.",
 };
