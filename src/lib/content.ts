@@ -13,6 +13,9 @@ export const navItems: NavItem[] = [
   { label: "Pipeline", href: "/pipeline" },
   { label: "Clinical", href: "/clinical" },
   { label: "Team", href: "/team" },
+  { label: "Collaborations", href: "/collaborations" },
+  { label: "Publications", href: "/publications" },
+  { label: "News", href: "/news" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -309,6 +312,7 @@ export const teamHero: PageHero = {
 
 export const management = [
   {
+    image: "/Vivek.png",
     initials: "VS",
     name: "Vivek Shinde Patil",
     degree: "PhD",
@@ -317,6 +321,7 @@ export const management = [
     bio: "Accomplished biotech professional and entrepreneur with expertise bringing products to market and startup commercialization and scale-up.",
   },
   {
+    image: "/Zdravka.png",
     initials: "ZM",
     name: "Zdravka Medarova",
     degree: "PhD",
@@ -325,6 +330,7 @@ export const management = [
     bio: "Internationally recognized geneticist and non-coding RNA researcher. Associate Professor of Radiology at Harvard Medical School, founder and CSO of Transcode Therapeutics.",
   },
   {
+    image: "/Elizabeth.png",
     initials: "EQ",
     name: "Elizabeth Quackenbush",
     degree: "MD PhD",
@@ -333,14 +339,16 @@ export const management = [
     bio: "Physician scientist with 20+ years of leadership in drug development across preclinical discovery and late-stage clinical trials. Senior roles at Merck, Roche, Agennix, Celldex, and Elstar.",
   },
   {
+    image: "/Anna.jpeg",
     initials: "AM",
     name: "Anna Moore",
     degree: "PhD",
-    role: "Co-Founder & Non-Clinical Advisor",
+    role: "Co-Founder & Pre-Clinical Advisor",
     tone: "bg-steel",
     bio: "Associate Dean for Research Development and Director of Precision Health Program at MSU. Successful startup commercialization, fundraising, and exits.",
   },
   {
+    image: "/Tania.png",
     initials: "TM",
     name: "Tania Montgomery",
     degree: "MBA",
@@ -352,13 +360,7 @@ export const management = [
 
 export const advisors = [
   {
-    initials: "FS",
-    name: "Frank Slack",
-    degree: "PhD",
-    tone: "bg-ink",
-    bio: "Director of the Cancer Research Institute for RNA Medicine, BIDMC/Harvard.",
-  },
-  {
+    image: "/Lubomir.png",
     initials: "LN",
     name: "Lubomir Nechev",
     degree: "PhD",
@@ -366,13 +368,7 @@ export const advisors = [
     bio: "Chief CMC Officer, Alnylam Pharmaceuticals.",
   },
   {
-    initials: "CP",
-    name: "Caroline Popper",
-    degree: "MD, MPH, Esq.",
-    tone: "bg-[#0F3D7A]",
-    bio: "Co-Founder and President, Popper & Company.",
-  },
-  {
+    image: "/mike.jpeg",
     initials: "ME",
     name: "Mike Exton",
     degree: "PhD",
@@ -380,6 +376,7 @@ export const advisors = [
     bio: "CEO at Lexicon Pharmaceuticals. Executive leadership at Novartis.",
   },
   {
+    image: "/piefrancesco.png",
     initials: "PT",
     name: "Pierfrancesco Tassone",
     degree: "MD",
@@ -388,19 +385,25 @@ export const advisors = [
   },
 ];
 
-export const partners: ContentCard[] = [
+export const partners: Array<ContentCard & { logo?: string; logoAlt?: string }> = [
   {
     title: "Magna Graecia University",
+    logo: "/assets/partners/magna-graecia-department.png",
+    logoAlt: "Magna Graecia University department logo",
     description:
       "Medical Oncology Laboratory Scientific Team led by Pierfrancesco Tassone MD, Pierosandro Tagliaferri MD, and Maria Teresa Di Martino PhD.",
   },
   {
     title: "Michigan State University",
+    logo: "/assets/partners/michigan-state.png",
+    logoAlt: "Michigan State University logo",
     description:
       "Laboratory of Dr. Anna Moore, Director of MSU's Precision Health Program and Associate Dean for Research Development.",
   },
   {
-    title: "Strategic Biotech Consultants",
+    title: "SSI",
+    logo: "/assets/partners/ssi-strategy.png",
+    logoAlt: "SSI Strategy logo",
     description:
       "Combines deep expertise with strategic insight to offer multidisciplinary support to biotechs.",
   },
@@ -408,9 +411,33 @@ export const partners: ContentCard[] = [
 
 export const partnerFocus = [
   "Platform inventors & clinical trial partners",
-  "Preclinical R&D & pipeline development",
-  "Non-clinical & clinical development planning",
+  "Pre-clinical R&D & therapeutic pipeline development",
+  "Pre-clinical & clinical development planning and go-to-market strategy",
 ];
+
+export const collaborationsHero: PageHero = {
+  eyebrow: "Collaborations",
+  title: "Strategic",
+  accent: "partnerships",
+  description:
+    "Pherrix works with academic, clinical, and strategic partners to support translational development of LockMiR therapeutics.",
+};
+
+export const newsHero: PageHero = {
+  eyebrow: "News",
+  title: "Company",
+  accent: "updates",
+  description:
+    "News, announcements, and company updates from Pherrix will be available here.",
+};
+
+export const publicationsHero: PageHero = {
+  eyebrow: "Research & Publications",
+  title: "Advancing microRNA",
+  accent: "therapeutics",
+  description:
+    "Peer-reviewed publications and clinical resources from the Pherrix team and collaborators, spanning preclinical discovery through first-in-human clinical translation.",
+};
 
 export const contactHero: PageHero = {
   eyebrow: "Contact",

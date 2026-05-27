@@ -46,13 +46,13 @@ export function SiteHeader() {
       <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between px-5 sm:px-8 lg:px-10">
         <Logo />
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {renderNavLinks("desktop")}
         </nav>
 
         <button
           type="button"
-          className="relative z-[80] inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink shadow-[0_1px_8px_rgba(12,45,90,0.06)] md:hidden"
+          className="relative z-[80] inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink shadow-[0_1px_8px_rgba(12,45,90,0.06)] lg:hidden"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="mobile-navigation"
@@ -66,13 +66,13 @@ export function SiteHeader() {
         <>
           <button
             type="button"
-            className="fixed inset-x-0 bottom-0 top-[68px] z-[55] cursor-default bg-ink/5 md:hidden"
+            className="fixed inset-x-0 bottom-0 top-[68px] z-[55] cursor-default bg-ink/5 lg:hidden"
             onClick={() => setOpen(false)}
             aria-label="Close navigation"
           />
           <nav
             id="mobile-navigation"
-            className="absolute inset-x-0 top-full z-[70] grid gap-2 border-t border-line bg-white px-5 py-4 shadow-soft md:hidden"
+            className="absolute inset-x-0 top-full z-[70] grid gap-2 border-t border-line bg-white px-5 py-4 shadow-soft lg:hidden"
             aria-label="Mobile primary"
           >
             {renderNavLinks("mobile")}
