@@ -21,6 +21,7 @@ type MosaicPanel = {
   imageFit?: "cover" | "contain";
   imageOpacity?: number;
   imageFilter?: string;
+  imageBlendMode?: "screen" | "overlay" | "soft-light" | "normal";
 };
 
 const mosaicPanels: MosaicPanel[] = [
@@ -31,11 +32,12 @@ const mosaicPanels: MosaicPanel[] = [
     icon: "lock",
     tone: "image-blue",
     className: "lg:col-start-1 lg:col-span-4 lg:row-start-1 lg:row-span-3",
-    image: "/assets/lockmir-logo.png",
+    image: "/assets/lockmir-transparent.png",
     imagePosition: "50% 42%",
     imageFit: "contain",
-    imageOpacity: 0.56,
-    imageFilter: "saturate(1.2) contrast(1.08)",
+    imageOpacity: 0.45,
+    imageFilter: "brightness(0) invert(1)",
+    imageBlendMode: "normal",
     description:
       "How LockMiR reprograms tumor behavior upstream of protein targets.",
   },
@@ -71,7 +73,9 @@ const mosaicPanels: MosaicPanel[] = [
     className: "lg:col-start-1 lg:col-span-4 lg:row-start-4 lg:row-span-2",
     image: "/assets/pherrix-mark.png",
     imageFit: "contain",
-    imageOpacity: 0.16,
+    imageOpacity: 0.28,
+    imageFilter: "brightness(0) invert(1)",
+    imageBlendMode: "normal",
     description:
       "Scientific, clinical, regulatory, and company-building expertise.",
   },
@@ -250,7 +254,9 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
             filter: panel.imageFilter,
             WebkitMaskImage: containedImageMask,
             maskImage: containedImageMask,
-            mixBlendMode: panel.imageFit === "contain" ? "screen" : undefined,
+            mixBlendMode:
+              panel.imageBlendMode ??
+              (panel.imageFit === "contain" ? "screen" : undefined),
             objectPosition: panel.imagePosition,
             opacity:
               panel.imageOpacity ?? (panel.tone === "deep" ? 0.2 : 0.58),

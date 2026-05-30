@@ -43,7 +43,7 @@ export default function ClinicalPage() {
         <Reveal>
           <SectionLabel>Key Results</SectionLabel>
           <h2 className="font-serif text-4xl font-normal text-ink">
-            Safety & efficacy <span className="text-ember">signals</span>
+            Safety and Efficacy
           </h2>
         </Reveal>
 

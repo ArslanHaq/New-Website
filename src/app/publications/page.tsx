@@ -54,7 +54,7 @@ const publicationGroups: Array<{
         journal: "Blood / ASH Proceedings (2015)",
         description:
           "Evaluated biodistribution and safety of LNA-i-miR-221 in animal models.",
-        href: "https://pubmed.ncbi.nlm.nih.gov/?term=LNA-i-miR-221+pharmacokinetics+biodistribution+tassone",
+        href: "https://www.sciencedirect.com/science/article/pii/S000649711850015X",
       },
     ],
   },
@@ -78,7 +78,7 @@ const publicationGroups: Array<{
         journal: "(2019)",
         description:
           "Predicted human pharmacokinetics using interspecies scaling models.",
-        href: "https://pubmed.ncbi.nlm.nih.gov/?term=allometric+scaling+LNA+miR-221+di+martino",
+        href: "http://mdpi.com/2072-6694/12/1/27",
       },
       {
         title:
@@ -87,7 +87,7 @@ const publicationGroups: Array<{
         journal: "(2020)",
         description:
           "Developed analytical assays supporting clinical translation.",
-        href: "https://pubmed.ncbi.nlm.nih.gov/?term=bioanalytical+LNA-i-miR-221+LC-MS+franzoni",
+        href: "https://www.sciencedirect.com/science/article/pii/S2590257124000245?via%3Dihub",
       },
     ],
   },

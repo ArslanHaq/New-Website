@@ -20,10 +20,6 @@ export default function ContactPage() {
           <Reveal>
             <div>
               <h2 className="text-2xl font-semibold text-ink">Get in touch</h2>
-              <p className="mt-4 max-w-xl text-base leading-8 text-muted">
-                Whether you are a pharmaceutical partner, academic collaborator,
-                or investor, we would like to hear from you.
-              </p>
 
               <div className="mt-8 grid gap-4">
                 <div className="flex items-center gap-4">

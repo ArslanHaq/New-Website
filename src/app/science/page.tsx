@@ -39,7 +39,7 @@ const unmetNeedCards = [
     href: "https://www.cancer.org/cancer/types/colon-rectal-cancer/detection-diagnosis-staging/survival-rates.html",
   },
   {
-    label: "CIPN",
+    label: "CHEMOTHERAPY INDUCED PERIPHERAL NEUROPATHY (CIPN)",
     value: "0",
     metric: "FDA-approved treatments",
     description:

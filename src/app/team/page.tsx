@@ -62,27 +62,27 @@ export default function TeamPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {advisors.map((advisor, index) => (
             <Reveal key={advisor.name} delay={index * 60}>
-              <article className="card-surface h-full p-5 text-center">
+              <article className="card-surface h-full p-6 text-center">
                 {advisor.image ? (
                   <img
                     src={advisor.image}
                     alt={advisor.name}
-                    className="mx-auto mb-4 h-20 w-20 rounded-2xl object-cover shadow-[0_12px_28px_rgba(12,45,90,0.1)] ring-1 ring-line"
+                    className="mx-auto mb-5 h-24 w-24 rounded-2xl object-cover shadow-[0_12px_28px_rgba(12,45,90,0.1)] ring-1 ring-line"
                   />
                 ) : (
                   <div
-                    className={`mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full text-sm font-semibold text-white ${advisor.tone}`}
+                    className={`mx-auto mb-5 grid h-14 w-14 place-items-center rounded-full text-base font-semibold text-white ${advisor.tone}`}
                   >
                     {advisor.initials}
                   </div>
                 )}
-                <h3 className="text-base font-semibold text-ink">
+                <h3 className="text-lg font-semibold text-ink">
                   {advisor.name}
                 </h3>
-                <p className="mt-1 text-xs font-bold text-ember">
+                <p className="mt-1 text-sm font-bold text-ember">
                   {advisor.degree}
                 </p>
-                <p className="mt-3 text-xs leading-5 text-muted">
+                <p className="mt-3 text-sm leading-6 text-muted">
                   {advisor.bio}
                 </p>
               </article>

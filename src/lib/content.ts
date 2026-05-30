@@ -332,7 +332,7 @@ export const management = [
     bio: "Internationally recognized geneticist and non-coding RNA researcher. Associate Professor of Radiology at Harvard Medical School, founder and CSO of Transcode Therapeutics.",
   },
   {
-    image: "/Elizabeth.png",
+    image: "/assets/team/elizabeth-quackenbush.png",
     initials: "EQ",
     name: "Elizabeth Quackenbush",
     degree: "MD PhD",
@@ -362,7 +362,7 @@ export const management = [
 
 export const advisors = [
   {
-    image: "/Lubomir.png",
+    image: "/assets/team/lubomir-nechev.jpeg",
     initials: "LN",
     name: "Lubomir Nechev",
     degree: "PhD",
@@ -422,7 +422,7 @@ export const collaborationsHero: PageHero = {
   title: "Strategic",
   accent: "partnerships",
   description:
-    "Pherrix works with academic, clinical, and strategic partners to support translational development of LockMiR therapeutics.",
+    "Pherrix works with academic, clinical, and strategic partners to support translational development of LockMiR therapeutics.\n\nThese partnerships support platform invention, pre-clinical development, clinical translation, and go-to-market planning.",
 };
 
 export const newsHero: PageHero = {

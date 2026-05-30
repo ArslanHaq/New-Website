@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { Section, SectionLabel } from "@/components/section";
+import { Section } from "@/components/section";
 import { collaborationsHero, partnerFocus, partners } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -14,18 +14,7 @@ export default function CollaborationsPage() {
       <PageHero hero={collaborationsHero} />
 
       <Section className="pt-2">
-        <Reveal>
-          <SectionLabel>Strategic Partnerships</SectionLabel>
-          <h2 className="font-serif text-4xl font-normal text-ink">
-            Translational <span className="text-ember">network</span>
-          </h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-muted">
-            These partnerships support platform invention, pre-clinical
-            development, clinical translation, and go-to-market planning.
-          </p>
-        </Reveal>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 lg:grid-cols-3">
           {partners.map((partner, index) => (
             <Reveal key={partner.title} delay={index * 70}>
               <article className="card-surface h-full overflow-hidden p-0">
