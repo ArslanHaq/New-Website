@@ -60,7 +60,7 @@ const mosaicPanels: MosaicPanel[] = [
     eyebrow: "Programs",
     icon: "chart",
     tone: "deep",
-    className: "lg:col-start-9 lg:col-span-4 lg:row-start-1 lg:row-span-2",
+    className: "lg:col-start-1 lg:col-span-4 lg:row-start-4 lg:row-span-2",
     description:
       "Three therapeutic programs across oncology, CNS diseases, and fibrosis.",
   },
@@ -70,7 +70,7 @@ const mosaicPanels: MosaicPanel[] = [
     eyebrow: "Leadership",
     icon: "users",
     tone: "deep",
-    className: "lg:col-start-1 lg:col-span-4 lg:row-start-4 lg:row-span-2",
+    className: "lg:col-start-9 lg:col-span-4 lg:row-start-1 lg:row-span-2",
     image: "/assets/pherrix-mark.png",
     imageFit: "contain",
     imageOpacity: 0.28,
