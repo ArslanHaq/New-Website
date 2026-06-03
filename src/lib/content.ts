@@ -330,6 +330,7 @@ export const management = [
     role: "Co-Founder & Consulting CSO",
     tone: "bg-marine",
     bio: "Internationally recognized geneticist and non-coding RNA researcher. Associate Professor of Radiology at Harvard Medical School, founder and CSO of Transcode Therapeutics.",
+    hidden: true,
   },
   {
     image: "/assets/team/elizabeth-quackenbush.png",
@@ -350,6 +351,15 @@ export const management = [
     bio: "Associate Dean for Research Development and Director of Precision Health Program at MSU. Successful startup commercialization, fundraising, and exits.",
   },
   {
+    image: "/maria.jpeg",
+    initials: "MT",
+    name: "Maria Teresa Di Martino",
+    degree: "PhD",
+    role: "Group Leader, Preclinical R&D",
+    tone: "bg-marine",
+    bio: "Magna Graecia University, Italy.",
+  },
+  {
     image: "/Tania.png",
     initials: "TM",
     name: "Tania Montgomery",
@@ -357,6 +367,7 @@ export const management = [
     role: "Co-Founder & Advisor",
     tone: "bg-ember",
     bio: "Business development and biopharma marketing expert who has led multiple strategic partnerships around nucleic acid therapeutics for cancer.",
+    hidden: true,
   },
 ];
 
@@ -383,7 +394,7 @@ export const advisors = [
     name: "Pierfrancesco Tassone",
     degree: "MD",
     tone: "bg-ember",
-    bio: "Full Professor and Director of Medical Oncology, Magna Graecia University.",
+    bio: "Full Professor and Director of Medical Oncology, Magna Graecia University, Italy.",
   },
 ];
 

@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
+  const visibleManagement = management.filter((person) => !person.hidden);
+
   return (
     <>
       <PageHero hero={teamHero} />
@@ -18,7 +20,7 @@ export default function TeamPage() {
           <SectionLabel>Management</SectionLabel>
         </Reveal>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {management.map((person, index) => (
+          {visibleManagement.map((person, index) => (
             <Reveal key={person.name} delay={index * 70}>
               <article className="card-surface h-full p-7">
                 {person.image ? (
