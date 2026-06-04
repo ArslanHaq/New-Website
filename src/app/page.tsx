@@ -229,14 +229,14 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
       : "object-cover scale-105 group-hover:scale-110";
   const containedImageMask =
     panel.imageFit === "contain"
-      ? "radial-gradient(ellipse at center, black 0%, black 54%, transparent 82%)"
+      ? "radial-gradient(ellipse at center, black 0%, black 45%, transparent 70%)"
       : undefined;
 
   return (
     <Link
       href={panel.href}
       className={[
-        "group relative flex min-h-[230px] overflow-hidden rounded-[24px] border border-white/25 p-6 shadow-[0_22px_58px_rgba(6,46,91,0.18)] transition duration-300 before:absolute before:inset-0 before:z-[1] before:content-[''] hover:z-10 hover:scale-[1.012] hover:shadow-[0_28px_80px_rgba(22,76,158,0.3)] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-0 lg:p-5",
+        "group relative isolate flex min-h-[230px] overflow-hidden rounded-[24px] border border-white/25 p-6 shadow-[0_22px_58px_rgba(6,46,91,0.18)] transition duration-300 before:absolute before:inset-0 before:z-[1] before:rounded-[inherit] before:content-[''] hover:z-10 hover:scale-[1.012] hover:shadow-[0_28px_80px_rgba(22,76,158,0.3)] focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-6px] focus-visible:outline-white sm:p-8 lg:min-h-0 lg:p-5",
         panel.className,
         panelToneClass[panel.tone],
       ].join(" ")}
@@ -247,7 +247,7 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
           src={panel.image}
           alt=""
           className={[
-            "absolute inset-0 h-full w-full transition duration-700",
+            "absolute inset-0 h-full w-full rounded-[inherit] transition duration-700",
             imageFitClass,
           ].join(" ")}
           style={{
@@ -263,7 +263,7 @@ function Panel({ panel, index }: { panel: MosaicPanel; index: number }) {
           }}
         />
       ) : null}
-      <span className="absolute inset-0 z-[2] bg-[linear-gradient(125deg,rgba(255,255,255,0.2),transparent_30%),linear-gradient(to_top,rgba(8,47,118,0.58),rgba(22,76,158,0.18)_58%,rgba(64,151,240,0.1))]" />
+      <span className="absolute inset-0 z-[2] rounded-[inherit] bg-[linear-gradient(125deg,rgba(255,255,255,0.2),transparent_30%),linear-gradient(to_top,rgba(8,47,118,0.58),rgba(22,76,158,0.18)_58%,rgba(64,151,240,0.1))]" />
       <span className="absolute inset-x-0 top-0 z-[3] h-px bg-white/60" />
       <span className="relative z-10 flex h-full w-full flex-col justify-end">
         <span className="mb-auto flex items-start justify-between gap-4">
