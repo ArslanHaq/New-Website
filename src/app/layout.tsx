@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import Script from "next/script";
 import { Footer } from "@/components/footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/lib/content";
@@ -43,6 +44,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
       <body>
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/9c67f8fc9e63416c0aceb141b9b56e96/script.js"
+          strategy="beforeInteractive"
+        />
         <SiteHeader />
         <main>{children}</main>
         <Footer />

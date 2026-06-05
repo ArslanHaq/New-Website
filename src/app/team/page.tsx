@@ -84,6 +84,11 @@ export default function TeamPage() {
                 <p className="mt-1 text-sm font-bold text-ember">
                   {advisor.degree}
                 </p>
+                {"role" in advisor && advisor.role ? (
+                  <p className="mt-1 text-sm font-semibold text-marine">
+                    {advisor.role}
+                  </p>
+                ) : null}
                 <p className="mt-3 text-sm leading-6 text-muted">
                   {advisor.bio}
                 </p>
