@@ -385,9 +385,8 @@ export const advisors = [
     initials: "MT",
     name: "Maria Teresa Di Martino",
     degree: "PhD",
-    role: "Group Leader, Preclinical R&D",
     tone: "bg-marine",
-    bio: "Magna Graecia University, Italy.",
+    bio: "Group Leader, Preclinical R&D, Magna Graecia University, Italy.",
   },
   {
     image: "/piefrancesco.png",
